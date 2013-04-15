@@ -10,8 +10,6 @@ package trxcllnt.vr
 	import flash.display.DisplayObject;
 	import flash.geom.Rectangle;
 	
-	import org.tinytlf.types.Virtualizer;
-	
 	import raix.interactive.IEnumerable;
 	import raix.reactive.IObservable;
 
