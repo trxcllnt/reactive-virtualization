@@ -20,12 +20,13 @@ package trxcllnt.vr
 							   updates:IObservable, /*Array<List, Rectangle, Cache>*/
 							   selectVisible:Function, /*(List, Rectangle, Cache):IObservable<Array<Unit, DisplayObject>>*/
 							   reportUpdate:Function, /*(Rectangle, Cache, Unit, DisplayObject):void*/
-							   expandUpdate:Function):IObservable /*(Rectangle, Cache, Unit, Array<DisplayObject>):IObservable<Array<Unit, DisplayObject>>*/
+							   expandUpdate:Function):IObservable /*(Rectangle, Cache, Unit, Array<Unit, DisplayObject>):IObservable<Array<Unit, DisplayObject>>*/
 	{
 		return updates.mappend(selectVisible).map(tail).
 			switchMany(sequence(
-				distribute(function(viewport:Rectangle, cache:Virtualizer, observable:IObservable):IObservable {
-					return observable.map([viewport, cache].concat);
+				distribute(function(...args):IObservable {
+					const observable:IObservable = last(args);
+					return observable.map(args.slice(0, -1).concat);
 				}),
 				callProperty('peek', distribute(reportUpdate)),
 				callProperty('toArray')
