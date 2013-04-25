@@ -48,7 +48,7 @@ package trxcllnt.vr
 		
 		public function addAt(item:*, index:int, size:int):*
 		{
-			if(item in itemCache)
+			if(itemCache.hasOwnProperty(item))
 				return item;
 			
 			if(size <= 0)
@@ -79,7 +79,7 @@ package trxcllnt.vr
 		{
 			const item:* = getItemAtIndex(index);
 			
-			if(!(item || item in itemCache))
+			if(!(item || itemCache.hasOwnProperty(item)))
 				return item;
 			
 			vector.setItemSize(index, size);
@@ -95,7 +95,7 @@ package trxcllnt.vr
 		{
 			const item:* = getItemAtIndex(index);
 			
-			if(!(item || item in itemCache))
+			if(!(item || itemCache.hasOwnProperty(item)))
 				return item;
 			
 			indexCache.splice(index, 1);
